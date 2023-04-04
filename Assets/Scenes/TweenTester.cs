@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.SceneManagement;
 using LeRatDev;
@@ -49,6 +47,7 @@ public class TweenTester : MonoBehaviour
         tweenGroup.AddTween(positionTween, 0f);
         tweenGroup.AddTween(rotationTween, 0f);
         tweenGroup.AddTween(scaleTween, 0f);
+        tweenGroup.AddTween(positionLoopTween, 0f);
         tweenGroup.SubscribeToStartEvent(() => Debug.LogError("Group Tween : Started"));
         tweenGroup.SubscribeToDelayEndEvent(() => Debug.LogError("Group Tween : Delay Ended"));
         tweenGroup.SubscribeToEndEvent(() => Debug.LogError("Group Tween : Ended"));

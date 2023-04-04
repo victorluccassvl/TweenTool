@@ -12,15 +12,13 @@ namespace LeRatDev
         [Header("Loop Settings")]
         [SerializeField] protected uint loopAmount;
 
-        protected bool loopForever;
+        protected bool LoopForever { get => loopAmount == 0; }
 
         protected Action<uint> OnEachLoopEnd;
 
         public LoopTween(uint? loopAmount, MonoBehaviour monoBehaviour, T entity, U initialValue, U targetValue, float duration) : base(monoBehaviour, entity, initialValue, targetValue, duration)
         {
-            if (loopAmount != null) this.loopAmount = loopAmount.Value;
-
-            this.loopForever = loopAmount == null || loopAmount.Value == 0;
+            this.loopAmount = (loopAmount != null) ? loopAmount.Value : 0;
 
             this.OnEachLoopEnd = null;
         }
@@ -53,7 +51,7 @@ namespace LeRatDev
             if (delay > 0f) OnDelayEnd?.Invoke();
 
             // Evaluate interpolation over time for each loop
-            for (uint loop = 0; loop < loopAmount || loopForever; loop++)
+            for (uint loop = 0; loop < loopAmount || LoopForever; loop++)
             {
                 currentTime = ignoreTimeScale ? Time.unscaledTime : Time.time;
                 float loopStartTime = currentTime;
