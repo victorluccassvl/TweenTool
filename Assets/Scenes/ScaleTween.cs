@@ -1,14 +1,17 @@
 using System;
 using UnityEngine;
 
-[Serializable]
-public class ScaleTween : Tween<Transform, Vector3>
+namespace LeRatDev
 {
-    public ScaleTween(MonoBehaviour monoBehaviour, RectTransform entity, Vector3 initialValue, Vector3 targetValue, float duration) : base(monoBehaviour, entity, initialValue, targetValue, duration) { }
-
-    protected override void Evaluate(float? progressOverride = null)
+    [Serializable]
+    public class ScaleTween : Tween<Transform, Vector3>
     {
-        float t = progressOverride != null ? progressOverride.Value : progressWithCurveApplied;
-        entity.localScale = (1f - t) * initialValue + (t) * targetValue;
+        public ScaleTween(MonoBehaviour monoBehaviour, RectTransform entity, Vector3 initialValue, Vector3 targetValue, float duration) : base(monoBehaviour, entity, initialValue, targetValue, duration) { }
+
+        protected override void Evaluate(float? progressOverride = null)
+        {
+            float t = progressOverride != null ? progressOverride.Value : progressWithCurveApplied;
+            entity.localScale = (1f - t) * initialValue + (t) * targetValue;
+        }
     }
 }
