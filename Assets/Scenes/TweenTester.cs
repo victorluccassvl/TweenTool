@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEditor.SceneManagement;
 using LeRatDev;
+using TMPro;
 
 public class TweenTester : MonoBehaviour
 {
+    public TextMeshProUGUI debugText;
+
     private ITween pickedTween = null;
 
     public PositionTween positionTween;
@@ -19,38 +22,38 @@ public class TweenTester : MonoBehaviour
     {
         pickedTween = positionTween;
 
-        positionTween.SubscribeToStartEvent(() => Debug.LogError("Position Tween : Started"));
-        positionTween.SubscribeToDelayEndEvent(() => Debug.LogError("Position Tween : Delay Ended"));
-        positionTween.SubscribeToEndEvent(() => Debug.LogError("Position Tween : Ended"));
+        positionTween.SubscribeToStartEvent(() => debugText.text += "<color=\"blue\">" + "Start : Position" + "</color>\n");
+        positionTween.SubscribeToDelayEndEvent(() => debugText.text += "<color=#00AA00>" + "Delay End : Position" + "</color>\n");
+        positionTween.SubscribeToEndEvent(() => debugText.text += "<color=\"red\">" + "End : Position" + "</color>\n");
 
-        localPositionTween.SubscribeToStartEvent(() => Debug.LogError("Local Position Tween : Started"));
-        localPositionTween.SubscribeToDelayEndEvent(() => Debug.LogError("Local Position Tween : Delay Ended"));
-        localPositionTween.SubscribeToEndEvent(() => Debug.LogError("Local Position : Tween Ended"));
+        localPositionTween.SubscribeToStartEvent(() => debugText.text += "<color=\"blue\">" + "Start : Local Position" + "</color>\n");
+        localPositionTween.SubscribeToDelayEndEvent(() => debugText.text += "<color=#00AA00>" + "Delay End : Local Position" + "</color>\n");
+        localPositionTween.SubscribeToEndEvent(() => debugText.text += "<color=\"red\">" + "End : Local Position" + "</color>\n");
 
-        rotationTween.SubscribeToStartEvent(() => Debug.LogError("Rotation Tween : Started"));
-        rotationTween.SubscribeToDelayEndEvent(() => Debug.LogError("Rotation Tween : Delay Ended"));
-        rotationTween.SubscribeToEndEvent(() => Debug.LogError("Rotation Tween : Ended"));
+        rotationTween.SubscribeToStartEvent(() => debugText.text += "<color=\"blue\">" + "Start : Rotation" + "</color>\n");
+        rotationTween.SubscribeToDelayEndEvent(() => debugText.text += "<color=#00AA00>" + "Delay End : Rotation" + "</color>\n");
+        rotationTween.SubscribeToEndEvent(() => debugText.text += "<color=\"red\">" + "End : Rotation" + "</color>\n");
 
-        localRotationTween.SubscribeToStartEvent(() => Debug.LogError("Local Rotation Tween : Started"));
-        localRotationTween.SubscribeToDelayEndEvent(() => Debug.LogError("Local Rotation Tween : Delay Ended"));
-        localRotationTween.SubscribeToEndEvent(() => Debug.LogError("Local Rotation : Tween Ended"));
+        localRotationTween.SubscribeToStartEvent(() => debugText.text += "<color=\"blue\">" + "Start : Local Rotation" + "</color>\n");
+        localRotationTween.SubscribeToDelayEndEvent(() => debugText.text += "<color=#00AA00>" + "Delay End : Local Rotation" + "</color>\n");
+        localRotationTween.SubscribeToEndEvent(() => debugText.text += "<color=\"red\">" + "End : Local Rotation" + "</color>\n");
 
-        scaleTween.SubscribeToStartEvent(() => Debug.LogError("Scale Tween : Started"));
-        scaleTween.SubscribeToDelayEndEvent(() => Debug.LogError("Scale Tween : Delay Ended"));
-        scaleTween.SubscribeToEndEvent(() => Debug.LogError("Scale Tween : Ended"));
+        scaleTween.SubscribeToStartEvent(() => debugText.text += "<color=\"blue\">" + "Start : Scale\n</color>");
+        scaleTween.SubscribeToDelayEndEvent(() => debugText.text += "<color=#00AA00>" + "Delay End : Scale" + "</color>\n");
+        scaleTween.SubscribeToEndEvent(() => debugText.text += "<color=\"red\">" + "End : Scale" + "</color>\n");
 
-        positionLoopTween.SubscribeToStartEvent(() => Debug.LogError("Position Loop Tween : Started"));
-        positionLoopTween.SubscribeToDelayEndEvent(() => Debug.LogError("Position Loop Tween : Delay Ended"));
-        positionLoopTween.SubscribeToEachLoopEnd((loop) => Debug.LogError("Position Loop Tween : Loop " + loop + " Ended"));
-        positionLoopTween.SubscribeToEndEvent(() => Debug.LogError("Position Loop Tween : Ended"));
+        positionLoopTween.SubscribeToStartEvent(() => debugText.text += "<color=\"blue\">" + "Start : Loop Position" + "</color>\n");
+        positionLoopTween.SubscribeToDelayEndEvent(() => debugText.text += "<color=#00AA00>" + "Delay End : Loop Position" + "</color>\n");
+        positionLoopTween.SubscribeToEachLoopEnd((i) => debugText.text += "<color=\"purple\">" + "Loop [" + i + "] End : Loop Position" + "</color>\n");
+        positionLoopTween.SubscribeToEndEvent(() => debugText.text += "<color=\"red\">" + "End : Loop Position" + "</color>\n");
 
         tweenGroup.AddTween(positionTween, 0f);
         tweenGroup.AddTween(rotationTween, 0f);
         tweenGroup.AddTween(scaleTween, 0f);
         tweenGroup.AddTween(positionLoopTween, 0f);
-        tweenGroup.SubscribeToStartEvent(() => Debug.LogError("Group Tween : Started"));
-        tweenGroup.SubscribeToDelayEndEvent(() => Debug.LogError("Group Tween : Delay Ended"));
-        tweenGroup.SubscribeToEndEvent(() => Debug.LogError("Group Tween : Ended"));
+        tweenGroup.SubscribeToStartEvent(() => debugText.text += "<color=\"black\">" + "Start : Group" + "</color>\n");
+        tweenGroup.SubscribeToDelayEndEvent(() => debugText.text += "<color=\"black\">" + "Delay End : Group" + "</color>\n");
+        tweenGroup.SubscribeToEndEvent(() => debugText.text += "<color=\"black\">" + "End : Group" + "</color>\n");
     }
 
     public void OnGUI()
@@ -72,6 +75,7 @@ public class TweenTester : MonoBehaviour
         GUILayout.BeginVertical("Box");
         if (GUILayout.Button("Run"))
         {
+            debugText.text = "";
             pickedTween.Run();
         }
         if (GUILayout.Button("Stop"))
@@ -101,5 +105,3 @@ public class TweenTester : MonoBehaviour
         GUILayout.EndVertical();
     }
 }
-
-
