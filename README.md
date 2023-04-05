@@ -1,6 +1,6 @@
 # Tween Tool
 
-> Personal project consisting of a implementation of a Tween library/base.
+> Personal project consisting of a implementation of an Tween library.
 
 ## 🚀 Installing
 
